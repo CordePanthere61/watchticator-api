@@ -11,8 +11,8 @@ export default class TokensController {
     }
 
     public async generate( req: Request, res: Response, next: NextFunction) {
-        // return res.status(200).send(`<img src="${await QRCode.toDataURL(crypto.randomUUID() + req.query.website)}"></img>`)
-        return res.status(200).send(await (crypto.randomUUID() + '|' + req.query.website));
+        return res.status(200).send(`<img src="${await QRCode.toDataURL(crypto.randomUUID() + '|' + req.query.website)}"></img>`)
+        // return res.status(200).send(crypto.randomUUID() + '|' + req.query.website);
     }
 
     public register(req: Request, res: Response, next: NextFunction) {
