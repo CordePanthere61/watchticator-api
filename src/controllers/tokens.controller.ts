@@ -16,12 +16,12 @@ export default class TokensController {
     }
 
     public register(req: Request, res: Response, next: NextFunction) {
-        this.service.registerNewCombinaison(req.query.uuid as string, req.query.combinaison as string, req.query.website as string)
+        this.service.registerNewCombinaison(req.body.uuid as string, req.body.combinaison as string, req.body.website as string)
             .then(() => {
                 return res.status(200).json({
-                    uuid: req.query.uuid,
-                    combinaison: req.query.combinaison,
-                    website: req.query.website
+                    uuid: req.body.uuid,
+                    combinaison: req.body.combinaison,
+                    website: req.body.website
                 });
             })
             .catch((e: any) => {
