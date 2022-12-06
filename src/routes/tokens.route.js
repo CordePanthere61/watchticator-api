@@ -27,7 +27,6 @@ class TokensRoute {
     initializeRoutes() {
         return __awaiter(this, void 0, void 0, function* () {
             this.router.get(`${this.path}/generate`, this.validator.generate(), base_validator_1.validate, this.controller.generate.bind(this.controller));
-            this.router.get(`${this.path}/register`, this.validator.register(), base_validator_1.validate, this.controller.register.bind(this.controller));
         });
     }
 }

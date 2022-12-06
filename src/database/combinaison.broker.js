@@ -12,15 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const tokens_broker_1 = __importDefault(require("../database/tokens.broker"));
-class TokensService {
-    constructor() {
-        this.broker = new tokens_broker_1.default();
-    }
-    generateNewToken(uuid, website) {
+const base_broker_1 = __importDefault(require("./base.broker"));
+const pg_1 = require("@databases/pg");
+class CombinaisonBroker extends base_broker_1.default {
+    insert(website, mac, movements) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.broker.insert(uuid, website);
+                let connection = yield this.getConnection();
+                yield connection.query((0, pg_1.sql) `INSERT INTO "combinaison" (website, mac, movements) VALUES (${website}, ${mac}, ${movements})`);
             }
             catch (e) {
                 console.log(e);
@@ -29,4 +28,4 @@ class TokensService {
         });
     }
 }
-exports.default = TokensService;
+exports.default = CombinaisonBroker;

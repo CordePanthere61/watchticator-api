@@ -12,21 +12,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const tokens_broker_1 = __importDefault(require("../database/tokens.broker"));
-class TokensService {
+const combinaison_service_1 = __importDefault(require("../services/combinaison.service"));
+class CombinaisonController {
     constructor() {
-        this.broker = new tokens_broker_1.default();
+        this.service = new combinaison_service_1.default();
     }
-    generateNewToken(uuid, website) {
+    register(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.broker.insert(uuid, website);
+                yield this.service.registerNewCombinaison(req.body.uuid, req.body.mac, req.body.movements);
+                return res.status(200).json({
+                    message: "Success"
+                });
             }
             catch (e) {
-                console.log(e);
-                throw e;
+                res.status(500).json({
+                    message: e
+                });
             }
         });
     }
 }
-exports.default = TokensService;
+exports.default = CombinaisonController;

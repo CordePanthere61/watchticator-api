@@ -2,9 +2,9 @@
   "name": "watchticator-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "server.ts",
   "scripts": {
-    "dev": "ts-node-dev --respawn --pretty --transpile-only src/server.ts",
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node dist/server.js"
   },

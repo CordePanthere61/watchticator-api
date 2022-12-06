@@ -12,21 +12,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const tokens_broker_1 = __importDefault(require("../database/tokens.broker"));
-class TokensService {
+const express_1 = require("express");
+const base_validator_1 = require("../validators/base.validator");
+const combinaison_controller_1 = __importDefault(require("../controllers/combinaison.controller"));
+const combinaison_validator_1 = __importDefault(require("../validators/combinaison.validator"));
+class CombinaisonRoute {
     constructor() {
-        this.broker = new tokens_broker_1.default();
+        this.path = "/combinaison";
+        this.router = (0, express_1.Router)();
+        this.controller = new combinaison_controller_1.default();
+        this.validator = new combinaison_validator_1.default();
+        this.initializeRoutes();
     }
-    generateNewToken(uuid, website) {
+    initializeRoutes() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield this.broker.insert(uuid, website);
-            }
-            catch (e) {
-                console.log(e);
-                throw e;
-            }
+            this.router.post(`${this.path}/register`, this.validator.register(), base_validator_1.validate, this.controller.register.bind(this.controller));
         });
     }
 }
-exports.default = TokensService;
+exports.default = CombinaisonRoute;

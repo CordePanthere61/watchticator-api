@@ -20,23 +20,17 @@ class TokensController {
     }
     generate(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            // return res.status(200).send(`<img src="${await QRCode.toDataURL(crypto.randomUUID() + req.query.website)}"></img>`)
-            return res.status(200).send(yield (crypto_1.default.randomUUID() + '|' + req.query.website));
-        });
-    }
-    register(req, res, next) {
-        this.service.registerNewCombinaison(req.query.uuid, req.query.combinaison, req.query.website)
-            .then(() => {
-            return res.status(200).json({
-                uuid: req.query.uuid,
-                combinaison: req.query.combinaison,
-                website: req.query.website
-            });
-        })
-            .catch((e) => {
-            return res.status(500).json({
-                error: e
-            });
+            try {
+                yield this.service.generateNewToken(crypto_1.default.randomUUID(), req.query.website);
+                return res.status(200).json({
+                    message: "Success"
+                });
+            }
+            catch (e) {
+                return res.status(500).json({
+                    message: e
+                });
+            }
         });
     }
 }

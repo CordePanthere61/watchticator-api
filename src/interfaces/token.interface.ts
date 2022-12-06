@@ -1,5 +1,6 @@
 export default interface Token {
+    id: 5,
     uuid: string,
-    combinaison: string[];
-    combinaisonRaw: string|undefined;
+    website: string,
+    time: string
 }

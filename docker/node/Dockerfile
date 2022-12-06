@@ -3,4 +3,4 @@ WORKDIR /app
 COPY ["package.json", "package-lock.json*", "./"]
 RUN npm install -g ts-node-dev && npm install
 COPY . .
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "build"]

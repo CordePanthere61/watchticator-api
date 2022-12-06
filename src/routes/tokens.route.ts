@@ -20,6 +20,5 @@ export default class TokensRoute implements Routes {
 
     private async initializeRoutes() {
         this.router.get(`${this.path}/generate`, this.validator.generate(), validate, this.controller.generate.bind(this.controller));
-        this.router.post(`${this.path}/register`, this.validator.register(), validate, this.controller.register.bind(this.controller))
     }
 }
