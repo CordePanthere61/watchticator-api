@@ -13,10 +13,12 @@ export default class TokensController {
         try {
             await this.service.generateNewToken(crypto.randomUUID(), req.query.website as string);
             return res.status(200).json({
+                status: 200,
                 message: "Success"
             });
         } catch (e) {
             return res.status(500).json({
+                status: 500,
                 message: e
             });
         }

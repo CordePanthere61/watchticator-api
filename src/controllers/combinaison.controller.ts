@@ -12,10 +12,12 @@ export default class CombinaisonController {
         try {
             await this.service.registerNewCombinaison(req.body.uuid, req.body.mac, req.body.movements);
             return res.status(200).json({
+                status: 200,
                 message: "Success"
             });
         } catch (e) {
             res.status(500).json({
+                status: 500,
                 message: e
             });
         }
