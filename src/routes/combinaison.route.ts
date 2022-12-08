@@ -20,6 +20,5 @@ export default class CombinaisonRoute implements Routes {
 
     private async initializeRoutes() {
         this.router.post(`${this.path}/register`, this.validator.register(), validate, this.controller.register.bind(this.controller))
-        this.router.get(`${this.path}/websites`, this.validator.index(), validate, this.controller.index.bind(this.controller))
     }
 }

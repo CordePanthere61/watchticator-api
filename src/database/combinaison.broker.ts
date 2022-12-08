@@ -12,23 +12,4 @@ export default class CombinaisonBroker extends BaseBroker {
             throw e;
         }
     }
-
-    public async findAllByMac(mac: string) {
-        try {
-            let connection = await this.getConnection();
-            let res = await connection.query(sql`SELECT * FROM "combinaison" WHERE mac = ${mac}`);
-            if (!res.length) {
-                throw "Invalid mac";
-            }
-            return res.map((elem) => {
-                return {
-                    "id": elem.id,
-                    "name": elem.website
-                }
-            });
-        } catch (e) {
-            console.log(e);
-            throw e;
-        }
-    }
 }

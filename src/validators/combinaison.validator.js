@@ -9,10 +9,5 @@ class CombinaisonValidator {
             (0, express_validator_1.body)('movements').notEmpty()
         ];
     }
-    index() {
-        return [
-            (0, express_validator_1.check)('mac').notEmpty()
-        ];
-    }
 }
 exports.default = CombinaisonValidator;

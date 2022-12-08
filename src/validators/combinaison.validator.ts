@@ -1,4 +1,4 @@
-import {body, check} from 'express-validator';
+import { body } from 'express-validator';
 
 export default class CombinaisonValidator {
     register() {
@@ -6,11 +6,6 @@ export default class CombinaisonValidator {
             body('uuid').notEmpty(),
             body('mac').notEmpty(),
             body('movements').notEmpty()
-        ]
-    }
-    index() {
-        return [
-            check('mac').notEmpty()
         ]
     }
 }

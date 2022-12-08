@@ -17,34 +17,16 @@ class CombinaisonController {
     constructor() {
         this.service = new combinaison_service_1.default();
     }
-    index(req, res, next) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return res.status(200).json({
-                    status: 200,
-                    websites: yield this.service.getWebsitesWithMac(req.query.mac)
-                });
-            }
-            catch (e) {
-                return res.status(500).json({
-                    status: 500,
-                    message: e
-                });
-            }
-        });
-    }
     register(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this.service.registerNewCombinaison(req.body.uuid, req.body.mac, req.body.movements);
                 return res.status(200).json({
-                    status: 200,
                     message: "Success"
                 });
             }
             catch (e) {
-                return res.status(500).json({
-                    status: 500,
+                res.status(500).json({
                     message: e
                 });
             }

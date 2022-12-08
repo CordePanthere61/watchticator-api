@@ -18,16 +18,7 @@ export default class TokensService {
             await this.broker.insert(token.website, mac, movements);
             this.tokenBroker.remove(token);
         } catch (e) {
-            console.log(e);
-            throw e;
-        }
-    }
-
-    public async getWebsitesWithMac(mac: string) {
-        try {
-            return this.broker.findAllByMac(mac);
-        } catch (e) {
-            console.log(e);
+            console.log(e)
             throw e;
         }
     }
