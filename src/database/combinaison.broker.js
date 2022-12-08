@@ -27,5 +27,26 @@ class CombinaisonBroker extends base_broker_1.default {
             }
         });
     }
+    findAllByMac(mac) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let connection = yield this.getConnection();
+                let res = yield connection.query((0, pg_1.sql) `SELECT * FROM "combinaison" WHERE mac = ${mac}`);
+                if (!res.length) {
+                    throw "Invalid mac";
+                }
+                return res.map((elem) => {
+                    return {
+                        "id": elem.id,
+                        "name": elem.website
+                    };
+                });
+            }
+            catch (e) {
+                console.log(e);
+                throw e;
+            }
+        });
+    }
 }
 exports.default = CombinaisonBroker;
