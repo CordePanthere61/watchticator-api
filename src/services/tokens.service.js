@@ -21,6 +21,7 @@ class TokensService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this.broker.insert(uuid, website);
+                return uuid;
             }
             catch (e) {
                 console.log(e);

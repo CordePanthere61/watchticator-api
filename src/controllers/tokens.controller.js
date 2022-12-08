@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const crypto_1 = __importDefault(require("crypto"));
 const tokens_service_1 = __importDefault(require("../services/tokens.service"));
+const qrcode_1 = __importDefault(require("qrcode"));
 class TokensController {
     constructor() {
         this.service = new tokens_service_1.default();
@@ -21,13 +22,16 @@ class TokensController {
     generate(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.service.generateNewToken(crypto_1.default.randomUUID(), req.query.website);
-                return res.status(200).json({
-                    message: "Success"
-                });
+                let uuid = yield this.service.generateNewToken(crypto_1.default.randomUUID(), req.query.website);
+                return res.status(200).send(`<img src="${yield qrcode_1.default.toDataURL(uuid)}"></img>`);
+                // return res.status(200).json({
+                //     status: 200,
+                //     message: "Success"
+                // });
             }
             catch (e) {
                 return res.status(500).json({
+                    status: 500,
                     message: e
                 });
             }

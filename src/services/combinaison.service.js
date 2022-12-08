@@ -34,6 +34,17 @@ class TokensService {
             }
         });
     }
+    getWebsitesWithMac(mac) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return this.broker.findAllByMac(mac);
+            }
+            catch (e) {
+                console.log(e);
+                throw e;
+            }
+        });
+    }
     areMovementsValid(movementsRaw) {
         let movements = movementsRaw.split('|');
         movements.every(element => {
