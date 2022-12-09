@@ -11,7 +11,7 @@ class CombinaisonValidator {
     }
     index() {
         return [
-            (0, express_validator_1.check)('mac').notEmpty()
+            (0, express_validator_1.body)('mac').notEmpty()
         ];
     }
 }

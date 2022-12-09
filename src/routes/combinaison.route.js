@@ -27,7 +27,7 @@ class CombinaisonRoute {
     initializeRoutes() {
         return __awaiter(this, void 0, void 0, function* () {
             this.router.post(`${this.path}/register`, this.validator.register(), base_validator_1.validate, this.controller.register.bind(this.controller));
-            this.router.get(`${this.path}/websites`, this.validator.index(), base_validator_1.validate, this.controller.index.bind(this.controller));
+            this.router.post(`${this.path}/websites`, this.validator.index(), base_validator_1.validate, this.controller.index.bind(this.controller));
         });
     }
 }

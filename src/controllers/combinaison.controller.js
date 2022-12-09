@@ -22,7 +22,7 @@ class CombinaisonController {
             try {
                 return res.status(200).json({
                     status: 200,
-                    websites: yield this.service.getWebsitesWithMac(req.query.mac)
+                    websites: yield this.service.getWebsitesWithMac(req.body.mac)
                 });
             }
             catch (e) {
