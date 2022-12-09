@@ -12,7 +12,7 @@ export default class CombinaisonController {
         try {
             return res.status(200).json({
                 status: 200,
-                websites: await this.service.getWebsitesWithMac(req.query.mac as string)
+                websites: await this.service.getWebsitesWithMac(req.body.mac as string)
             })
         } catch (e) {
             return res.status(500).json({
