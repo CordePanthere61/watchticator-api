@@ -15,11 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const base_broker_1 = __importDefault(require("./base.broker"));
 const pg_1 = require("@databases/pg");
 class CombinaisonBroker extends base_broker_1.default {
-    insert(website, mac, movements) {
+    insert(website, mac, user, movements) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let connection = yield this.getConnection();
-                yield connection.query((0, pg_1.sql) `INSERT INTO "combinaison" (website, mac, movements) VALUES (${website}, ${mac}, ${movements})`);
+                yield connection.query((0, pg_1.sql) `INSERT INTO "combinaison" (website, mac, user, movements) VALUES (${website}, ${mac}, ${user}, ${movements})`);
             }
             catch (e) {
                 console.log(e);

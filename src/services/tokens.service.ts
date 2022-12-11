@@ -7,9 +7,9 @@ export default class TokensService {
         this.broker = new TokensBroker();
     }
 
-    public async generateNewToken(uuid: string, website: string): Promise<string> {
+    public async generateNewToken(uuid: string, website: string, user: string): Promise<string> {
         try {
-            await this.broker.insert(uuid, website);
+            await this.broker.insert(uuid, website, user);
             return uuid;
         } catch (e) {
             console.log(e);

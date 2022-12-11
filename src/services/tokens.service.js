@@ -17,10 +17,10 @@ class TokensService {
     constructor() {
         this.broker = new tokens_broker_1.default();
     }
-    generateNewToken(uuid, website) {
+    generateNewToken(uuid, website, user) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.broker.insert(uuid, website);
+                yield this.broker.insert(uuid, website, user);
                 return uuid;
             }
             catch (e) {

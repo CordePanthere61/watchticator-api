@@ -25,7 +25,7 @@ class TokensService {
             try {
                 this.areMovementsValid(movements);
                 let token = yield this.tokenBroker.find(uuid);
-                yield this.broker.insert(token.website, mac, movements);
+                yield this.broker.insert(token.website, mac, token.user, movements);
                 this.tokenBroker.remove(token);
             }
             catch (e) {

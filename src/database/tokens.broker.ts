@@ -26,11 +26,11 @@ export default class TokensBroker extends BaseBroker {
             });
     }
 
-    public async insert(uuid: string, website: string) {
+    public async insert(uuid: string, website: string, user: string) {
         try {
             let connection = await this.getConnection();
             let date = new Date(Date.now()).toISOString()
-            await connection.query(sql`INSERT INTO "token" (uuid, website, time) VALUES (${uuid}, ${website}, ${date})`);
+            await connection.query(sql`INSERT INTO "token" (uuid, website, user, time) VALUES (${uuid}, ${website}, ${user}, ${date})`);
         } catch (e) {
             console.log(e);
             throw e;

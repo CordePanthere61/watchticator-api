@@ -15,7 +15,7 @@ export default class TokensService {
         try {
             this.areMovementsValid(movements);
             let token = await this.tokenBroker.find(uuid);
-            await this.broker.insert(token.website, mac, movements);
+            await this.broker.insert(token.website, mac, token.user, movements);
             this.tokenBroker.remove(token);
         } catch (e) {
             console.log(e);

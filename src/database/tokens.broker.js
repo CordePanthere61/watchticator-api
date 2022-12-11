@@ -21,7 +21,7 @@ class TokensBroker extends base_broker_1.default {
                 let connection = yield this.getConnection();
                 let res = yield connection.query((0, pg_1.sql) `SELECT * from "token" where uuid = ${uuid}`);
                 if (!res.length) {
-                    throw "Invalid UUID";
+                    throw "Invalid QR code.";
                 }
                 else {
                     return res.at(0);
@@ -39,12 +39,12 @@ class TokensBroker extends base_broker_1.default {
             connection.query((0, pg_1.sql) `DELETE FROM "token" WHERE id = ${token.id}`);
         });
     }
-    insert(uuid, website) {
+    insert(uuid, website, user) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let connection = yield this.getConnection();
                 let date = new Date(Date.now()).toISOString();
-                yield connection.query((0, pg_1.sql) `INSERT INTO "token" (uuid, website, time) VALUES (${uuid}, ${website}, ${date})`);
+                yield connection.query((0, pg_1.sql) `INSERT INTO "token" (uuid, website, user, time) VALUES (${uuid}, ${website}, ${user}, ${date})`);
             }
             catch (e) {
                 console.log(e);
