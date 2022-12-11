@@ -30,7 +30,7 @@ export default class TokensBroker extends BaseBroker {
         try {
             let connection = await this.getConnection();
             let date = new Date(Date.now()).toISOString()
-            await connection.query(sql`INSERT INTO "token" (uuid, website, user, time) VALUES (${uuid}, ${website}, ${user}, ${date})`);
+            await connection.query(sql`INSERT INTO "token" (uuid, website, "user", time) VALUES (${uuid}, ${website}, ${user}, ${date})`);
         } catch (e) {
             console.log(e);
             throw e;
