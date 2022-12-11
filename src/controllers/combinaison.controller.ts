@@ -27,7 +27,7 @@ export default class CombinaisonController {
             await this.service.registerNewCombinaison(req.body.uuid, req.body.mac, req.body.movements);
             return res.status(200).json({
                 status: 200,
-                message: "Success"
+                message: "Combinaison successfully registered."
             });
         } catch (e) {
             return res.status(500).json({
