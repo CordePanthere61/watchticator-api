@@ -6,7 +6,7 @@ export default class CombinaisonBroker extends BaseBroker {
     public async insert(website: string, mac:string, user: string, movements: string) {
         try {
             let connection = await this.getConnection();
-            await connection.query(sql`INSERT INTO "combinaison" (website, mac, user, movements) VALUES (${website}, ${mac}, ${user}, ${movements})`)
+            await connection.query(sql`INSERT INTO "combinaison" (website, mac, "user", movements) VALUES (${website}, ${mac}, ${user}, ${movements})`)
         } catch (e) {
             console.log(e);
             throw e;
