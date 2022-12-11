@@ -9,7 +9,7 @@ export default class TokensBroker extends BaseBroker {
             let connection = await this.getConnection();
             let res = await connection.query(sql`SELECT * from "token" where uuid = ${uuid}`);
             if (!res.length) {
-                throw "Invalid UUID";
+                throw "Invalid QR code.";
             } else {
                 return res.at(0);
             }
