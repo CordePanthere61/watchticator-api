@@ -31,4 +31,14 @@ export default class CombinaisonBroker extends BaseBroker {
             throw e;
         }
     }
+
+    public async removeById(id: number) {
+        try {
+            let connection = await this.getConnection();
+            await connection.query(sql`DELETE FROM "combinaison" WHERE id = ${id}`);
+        } catch (e) {
+            console.log(e);
+            throw e;
+        }
+    }
 }

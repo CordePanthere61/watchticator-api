@@ -13,4 +13,7 @@ export default class CombinaisonValidator {
             body('mac').notEmpty()
         ]
     }
+    remove() {
+        return body('id').notEmpty()
+    }
 }

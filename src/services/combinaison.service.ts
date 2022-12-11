@@ -32,6 +32,15 @@ export default class TokensService {
         }
     }
 
+    public async removeCombinaison(id: number) {
+        try {
+            await this.broker.removeById(id);
+        } catch (e) {
+            console.log(e);
+            throw e;
+        }
+    }
+
     private areMovementsValid(movementsRaw: string) {
         let movements = movementsRaw.split('|');
         movements.every(element => {

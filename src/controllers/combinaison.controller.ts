@@ -36,4 +36,19 @@ export default class CombinaisonController {
             });
         }
     }
+
+    public async remove(req: Request, res: Response, next: NextFunction) {
+        try {
+            await this.service.removeCombinaison(req.body.id as number);
+            return res.status(200).json({
+                status: 200,
+                message: "Success"
+            })
+        } catch (e) {
+            return res.status(500).json({
+                status: 500,
+                message: e
+            })
+        }
+    }
 }

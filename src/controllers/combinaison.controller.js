@@ -50,5 +50,22 @@ class CombinaisonController {
             }
         });
     }
+    remove(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.service.removeCombinaison(req.body.id);
+                return res.status(200).json({
+                    status: 200,
+                    message: "Success"
+                });
+            }
+            catch (e) {
+                return res.status(500).json({
+                    status: 500,
+                    message: e
+                });
+            }
+        });
+    }
 }
 exports.default = CombinaisonController;

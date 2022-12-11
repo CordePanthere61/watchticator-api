@@ -14,5 +14,8 @@ class CombinaisonValidator {
             (0, express_validator_1.body)('mac').notEmpty()
         ];
     }
+    remove() {
+        return (0, express_validator_1.body)('id').notEmpty();
+    }
 }
 exports.default = CombinaisonValidator;

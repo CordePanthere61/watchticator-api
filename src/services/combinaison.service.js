@@ -45,6 +45,17 @@ class TokensService {
             }
         });
     }
+    removeCombinaison(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.broker.removeById(id);
+            }
+            catch (e) {
+                console.log(e);
+                throw e;
+            }
+        });
+    }
     areMovementsValid(movementsRaw) {
         let movements = movementsRaw.split('|');
         movements.every(element => {

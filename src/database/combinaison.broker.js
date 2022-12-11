@@ -48,5 +48,17 @@ class CombinaisonBroker extends base_broker_1.default {
             }
         });
     }
+    removeById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let connection = yield this.getConnection();
+                yield connection.query((0, pg_1.sql) `DELETE FROM "combinaison" WHERE id = ${id}`);
+            }
+            catch (e) {
+                console.log(e);
+                throw e;
+            }
+        });
+    }
 }
 exports.default = CombinaisonBroker;
