@@ -23,6 +23,7 @@ export default class AcknowledgmentService {
             }
             let acknowledgment = await this.broker.findByCombinaisonId(combinaison.id);
             await this.broker.completeAcknowledgment(acknowledgment.id);
+            await this.broker.removeAcknowledgmentsForCombinaisonId(combinaison.id);
         } catch (e) {
             console.log(e);
             throw e;

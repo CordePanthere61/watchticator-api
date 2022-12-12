@@ -53,7 +53,6 @@ export default class AcknowledgmentBroker extends BaseBroker {
     public async findById(id: number): Promise<Acknowledgment> {
         try {
             let connection = await this.getConnection();
-            console.log("IDDDDDDDDDDDD : " + id)
             let res = await connection.query(sql`SELECT * FROM "acknowledgment" WHERE id = ${id}`);
             if (!res.length) {
                 throw "Invalid acknowledgment id";
@@ -64,6 +63,16 @@ export default class AcknowledgmentBroker extends BaseBroker {
                 time: res.at(0).time,
                 completed: res.at(0).completed,
             }
+        } catch (e) {
+            console.log(e);
+            throw e;
+        }
+    }
+
+    public async removeAcknowledgmentsForCombinaisonId(id: number) {
+        try {
+            let connection = await this.getConnection();
+            await connection.query(sql`DELETE FROM "acknowledgment" WHERE id_combinaison = ${id}`);
         } catch (e) {
             console.log(e);
             throw e;
