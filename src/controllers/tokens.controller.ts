@@ -10,7 +10,7 @@ export default class TokensController {
         this.service = new TokensService();
     }
 
-    public async generate( req: Request, res: Response, next: NextFunction) {
+    public async generate(req: Request, res: Response, next: NextFunction) {
         try {
             let uuid = await this.service.generateNewToken(crypto.randomUUID(), req.query.website as string, req.query.user as string);
             return res.status(200).send(`${await QRCode.toDataURL(uuid)}`);
