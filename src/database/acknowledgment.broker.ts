@@ -24,7 +24,7 @@ export default class AcknowledgmentBroker extends BaseBroker {
     public async findByCombinaisonId(id: number): Promise<Acknowledgment> {
         try {
             let connection = await this.getConnection();
-            let res = await connection.query(sql`SELECT * FROM "acknowledgment" WHERE id_combinaison = ${id} AND completed = false ORDER BY "time" ASC`);
+            let res = await connection.query(sql`SELECT * FROM "acknowledgment" WHERE id_combinaison = ${id} AND completed = false ORDER BY "time" DESC`);
             if (!res.length) {
                 throw "No acknowledgment pending with this combinaison";
             }
