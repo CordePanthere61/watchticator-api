@@ -7,7 +7,10 @@ export default class IpController {
     public async update(req: Request, res: Response, next: NextFunction) {
         try {
             await this.service.updateAddress(req.query.address as string)
-            return res.status(200);
+            return res.status(200).json({
+                status: 200,
+                message: "Success"
+            });
         } catch (e) {
             return res.status(500).json({
                 status: 500,
