@@ -69,10 +69,10 @@ export default class AcknowledgmentBroker extends BaseBroker {
         }
     }
 
-    public async removeAcknowledgmentsForCombinaisonId(id: number) {
+    public async removeOtherAcknowledgmentsForCombinaisonId(acknowledgment: Acknowledgment, combinaison: Combinaison) {
         try {
             let connection = await this.getConnection();
-            await connection.query(sql`DELETE FROM "acknowledgment" WHERE id_combinaison = ${id}`);
+            await connection.query(sql`DELETE FROM "acknowledgment" WHERE id_combinaison = ${combinaison.id} AND id != ${acknowledgment.id}`);
         } catch (e) {
             console.log(e);
             throw e;
