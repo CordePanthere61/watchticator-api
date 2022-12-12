@@ -13,7 +13,7 @@ export default class TokensController {
     public async generate( req: Request, res: Response, next: NextFunction) {
         try {
             let uuid = await this.service.generateNewToken(crypto.randomUUID(), req.query.website as string, req.query.user as string);
-            return res.status(200).send(`<img src="${await QRCode.toDataURL(uuid)}"></img>`);
+            return res.status(200).send(`${await QRCode.toDataURL(uuid)}`);
             // return res.status(200).json({
             //     status: 200,
             //     message: "Success"
