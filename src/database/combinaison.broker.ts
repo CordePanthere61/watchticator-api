@@ -55,7 +55,8 @@ export default class CombinaisonBroker extends BaseBroker {
                     mac: elem.mac,
                     user: elem.user,
                     website: elem.website,
-                    movements: elem.movements
+                    movements: elem.movements,
+                    name: elem.website
                 }
             });
         } catch (e) {

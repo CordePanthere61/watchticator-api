@@ -12,6 +12,7 @@ export interface Combinaison {
     mac: string,
     user: string,
     movements: string
+    name: string|null
 }
 
 export interface Acknowledgment {
