@@ -14,10 +14,10 @@ export default class CombinaisonBroker extends BaseBroker {
         }
     }
 
-    public async findByWebsiteCombinaisonAndMac(website: string, mac: string, movements: string): Promise<Combinaison> {
+    public async findByWebsiteAndMac(website: string, mac: string): Promise<Combinaison> {
         try {
             let connection = await this.getConnection();
-            let res = await connection.query(sql`SELECT * FROM "combinaison" WHERE website = ${website} AND mac = ${mac} AND movements = ${movements}`);
+            let res = await connection.query(sql`SELECT * FROM "combinaison" WHERE website = ${website} AND mac = ${mac}`);
             if (!res.length) {
                 throw `Cannot find combinaison with filters: ${website} and ${mac}`;
             }
