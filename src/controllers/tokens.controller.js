@@ -22,7 +22,6 @@ class TokensController {
     generate(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                console.log("HERE");
                 let uuid = yield this.service.generateNewToken(crypto_1.default.randomUUID(), req.query.website, req.query.user);
                 return res.status(200).send(`<img src="${yield qrcode_1.default.toDataURL(uuid)}"></img>`);
                 // return res.status(200).json({

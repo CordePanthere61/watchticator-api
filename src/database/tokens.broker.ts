@@ -1,6 +1,6 @@
 import BaseBroker from './base.broker';
 import {sql} from '@databases/pg';
-import Token from "../interfaces/token.interface";
+import { Token } from "../interfaces/dbo.interface";
 
 export default class TokensBroker extends BaseBroker {
 

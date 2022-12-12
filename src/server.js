@@ -30,6 +30,7 @@ const dotenv = __importStar(require("dotenv"));
 const app_1 = __importDefault(require("./app"));
 const tokens_route_1 = __importDefault(require("./routes/tokens.route"));
 const combinaison_route_1 = __importDefault(require("./routes/combinaison.route"));
+const acknowledgment_route_1 = __importDefault(require("./routes/acknowledgment.route"));
 dotenv.config();
-const app = new app_1.default([new tokens_route_1.default(), new combinaison_route_1.default]);
+const app = new app_1.default([new tokens_route_1.default(), new combinaison_route_1.default, new acknowledgment_route_1.default()]);
 app.listen();

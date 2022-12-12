@@ -5,7 +5,7 @@ class TokensValidator {
     generate() {
         return [
             (0, express_validator_1.check)('website').notEmpty(),
-            (0, express_validator_1.check)('user').notEmpty
+            (0, express_validator_1.check)('user').notEmpty()
         ];
     }
 }

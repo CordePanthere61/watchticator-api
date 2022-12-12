@@ -14,12 +14,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const base_broker_1 = __importDefault(require("./base.broker"));
 const pg_1 = require("@databases/pg");
-class CombinaisonBroker extends base_broker_1.default {
-    insert(website, mac, user, movements) {
+class AcknowledgmentBroker extends base_broker_1.default {
+    insert(combinaison) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let connection = yield this.getConnection();
-                yield connection.query((0, pg_1.sql) `INSERT INTO "combinaison" (website, mac, "user", movements) VALUES (${website}, ${mac}, ${user}, ${movements})`);
+                let date = new Date(Date.now()).toISOString();
+                let acknowledgmentId = yield connection.query((0, pg_1.sql) `INSERT INTO "acknowledgment" (id_combinaison, "time") VALUES (${combinaison.id}, ${date}) RETURNING ID`);
+                return {
+                    id: acknowledgmentId.at(0).id,
+                    id_combinaison: combinaison.id,
+                    completed: false,
+                    time: date
+                };
             }
             catch (e) {
                 console.log(e);
@@ -27,15 +34,20 @@ class CombinaisonBroker extends base_broker_1.default {
             }
         });
     }
-    findByWebsiteAndMac(website, mac) {
+    findByCombinaisonId(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let connection = yield this.getConnection();
-                let res = yield connection.query((0, pg_1.sql) `SELECT * FROM "combinaison" WHERE website = ${website} AND mac = ${mac}`);
+                let res = yield connection.query((0, pg_1.sql) `SELECT * FROM "acknowledgment" WHERE id_combinaison = ${id} AND completed = false`);
                 if (!res.length) {
-                    throw `Cannot find combinaison with filters: ${website} and ${mac}`;
+                    throw "No acknowledgment pending with this combinaison";
                 }
-                return res.at(0);
+                return {
+                    id: res.at(0).id,
+                    id_combinaison: res.at(0).id_combinaison,
+                    time: res.at(0).time,
+                    completed: res.at(0).completed
+                };
             }
             catch (e) {
                 console.log(e);
@@ -43,51 +55,33 @@ class CombinaisonBroker extends base_broker_1.default {
             }
         });
     }
-    findByWebsiteAndUserId(website, user) {
+    completeAcknowledgment(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let connection = yield this.getConnection();
-                let res = yield connection.query((0, pg_1.sql) `SELECT * FROM "combinaison" WHERE website = ${website} AND "user" = ${user}`);
+                yield connection.query((0, pg_1.sql) `UPDATE "acknowledgment" SET completed = true WHERE id = ${id}`);
+            }
+            catch (e) {
+                console.log(e);
+                throw e;
+            }
+        });
+    }
+    findById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let connection = yield this.getConnection();
+                console.log("IDDDDDDDDDDDD : " + id);
+                let res = yield connection.query((0, pg_1.sql) `SELECT * FROM "acknowledgment" WHERE id = ${id}`);
                 if (!res.length) {
-                    throw `Cannot find combinaison with filters: ${website} and ${user}`;
+                    throw "Invalid acknowledgment id";
                 }
-                return res.at(0);
-            }
-            catch (e) {
-                console.log(e);
-                throw e;
-            }
-        });
-    }
-    findAllByMac(mac) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                let connection = yield this.getConnection();
-                let res = yield connection.query((0, pg_1.sql) `SELECT * FROM "combinaison" WHERE mac = ${mac}`);
-                if (!res.length) {
-                    throw "Invalid mac";
-                }
-                return res.map((elem) => {
-                    return {
-                        id: elem.id,
-                        mac: elem.mac,
-                        user: elem.user,
-                        website: elem.website,
-                        movements: elem.movements
-                    };
-                });
-            }
-            catch (e) {
-                console.log(e);
-                throw e;
-            }
-        });
-    }
-    removeById(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                let connection = yield this.getConnection();
-                yield connection.query((0, pg_1.sql) `DELETE FROM "combinaison" WHERE id = ${id}`);
+                return {
+                    id: res.at(0).id,
+                    id_combinaison: res.at(0).id_combinaison,
+                    time: res.at(0).time,
+                    completed: res.at(0).completed,
+                };
             }
             catch (e) {
                 console.log(e);
@@ -96,4 +90,4 @@ class CombinaisonBroker extends base_broker_1.default {
         });
     }
 }
-exports.default = CombinaisonBroker;
+exports.default = AcknowledgmentBroker;

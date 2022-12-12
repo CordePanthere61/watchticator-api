@@ -12,20 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const base_broker_1 = __importDefault(require("./base.broker"));
-const pg_1 = require("@databases/pg");
-class TokensBroker extends base_broker_1.default {
-    find(uuid) {
+const acknowledgment_broker_1 = __importDefault(require("../database/acknowledgment.broker"));
+const combinaison_broker_1 = __importDefault(require("../database/combinaison.broker"));
+class AcknowledgmentService {
+    constructor() {
+        this.broker = new acknowledgment_broker_1.default();
+        this.combinaisonBroker = new combinaison_broker_1.default();
+    }
+    create(website, user) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let connection = yield this.getConnection();
-                let res = yield connection.query((0, pg_1.sql) `SELECT * from "token" where uuid = ${uuid}`);
-                if (!res.length) {
-                    throw "Invalid QR code.";
-                }
-                else {
-                    return res.at(0);
-                }
+                let combinaison = yield this.combinaisonBroker.findByWebsiteAndUserId(website, user);
+                return yield this.broker.insert(combinaison);
             }
             catch (e) {
                 console.log(e);
@@ -33,18 +31,24 @@ class TokensBroker extends base_broker_1.default {
             }
         });
     }
-    remove(token) {
-        this.getConnection()
-            .then(connection => {
-            connection.query((0, pg_1.sql) `DELETE FROM "token" WHERE id = ${token.id}`);
-        });
-    }
-    insert(uuid, website, user) {
+    validate(website, movements, mac) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let connection = yield this.getConnection();
-                let date = new Date(Date.now()).toISOString();
-                yield connection.query((0, pg_1.sql) `INSERT INTO "token" (uuid, website, "user", time) VALUES (${uuid}, ${website}, ${user}, ${date})`);
+                let combinaison = yield this.combinaisonBroker.findByWebsiteAndMac(website, mac);
+                let acknowledgment = yield this.broker.findByCombinaisonId(combinaison.id);
+                yield this.broker.completeAcknowledgment(acknowledgment.id);
+            }
+            catch (e) {
+                console.log(e);
+                throw e;
+            }
+        });
+    }
+    verify(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let res = yield this.broker.findById(id);
+                return res.completed;
             }
             catch (e) {
                 console.log(e);
@@ -53,4 +57,4 @@ class TokensBroker extends base_broker_1.default {
         });
     }
 }
-exports.default = TokensBroker;
+exports.default = AcknowledgmentService;
