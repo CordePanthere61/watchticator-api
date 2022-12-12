@@ -17,7 +17,7 @@ export default class AcknowledgmentService {
 
     public async validate(website: string, movements: string, mac: string) {
         try {
-            let combinaison = await this.combinaisonBroker.findByWebsiteAndMac(website, mac);
+            let combinaison = await this.combinaisonBroker.findByWebsiteCombinaisonAndMac(website, mac, movements);
             let acknowledgment = await this.broker.findByCombinaisonId(combinaison.id);
             await this.broker.completeAcknowledgment(acknowledgment.id);
         } catch (e) {
