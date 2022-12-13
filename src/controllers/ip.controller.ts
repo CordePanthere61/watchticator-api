@@ -18,4 +18,18 @@ export default class IpController {
             });
         }
     }
+
+    public async last(req: Request, res: Response, next: NextFunction) {
+        try {
+            return res.status(200).json({
+                status: 200,
+                address: await this.service.findLast()
+            });
+        } catch (e) {
+            return res.status(500).json({
+                status: 500,
+                message: e
+            })
+        }
+    }
 }

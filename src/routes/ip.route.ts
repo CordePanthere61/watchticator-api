@@ -20,5 +20,6 @@ export default class IpRoute implements Routes {
 
     private async initializeRoutes() {
         this.router.get(`${this.path}/update`, this.validator.update(), validate, this.controller.update.bind(this.controller));
+        this.router.post(`${this.path}/last`, this.controller.last.bind(this.controller));
     }
 }

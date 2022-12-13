@@ -11,4 +11,13 @@ export default class IpService {
             throw e;
         }
     }
+
+    public async findLast(): Promise<string> {
+        try {
+            return await this.broker.findLast();
+        } catch (e) {
+            console.log(e);
+            throw e;
+        }
+    }
 }

@@ -12,4 +12,18 @@ export default class IpBroker extends BaseBroker {
             throw e;
         }
     }
+
+    public async findLast(): Promise<string> {
+        try {
+            let connection = await this.getConnection();
+            let res = await connection.query(sql`SELECT * FROM "mathieu" ORDER BY id DESC`);
+            if (!res.length) {
+                throw "Internal error";
+            }
+            return res.at(0).last_ip_address as string
+        } catch (e) {
+            console.log(e);
+            throw e;
+        }
+    }
 }
