@@ -1,2 +1,2 @@
 
-export const possibleCombinaisons = ["TOP", "DOWN", "LEFT", "RIGHT"];
+export const possibleCombinaisons = ["UP", "DOWN", "LEFT", "RIGHT"];
