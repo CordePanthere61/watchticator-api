@@ -1,3 +1,4 @@
+# Watchticator - API
 ## IoT School Project from my third year at Cégep de Sorel-Tracy
 #### Typescript API for a IOS/WatchOS application
 
